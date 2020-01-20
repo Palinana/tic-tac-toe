@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import Board from './Board/Board';
-import Scoreboard from './ScoreBoard/ScoreBoard';
+import Board from './components/Board/Board';
+import Scoreboard from './components/ScoreBoard/ScoreBoard';
 
 class App extends Component {
     render() {

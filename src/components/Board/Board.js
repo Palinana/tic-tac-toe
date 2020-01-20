@@ -19,6 +19,7 @@ class Board extends Component {
                     {/* <h2 className="board-heading">{status}</h2> */}
 
                     <div className="board-row">
+                        board
                     </div>
                 </div>
             </div>
