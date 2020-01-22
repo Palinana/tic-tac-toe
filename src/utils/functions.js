@@ -10,6 +10,7 @@ export function findWinner(boxes) {
         [0, 4, 8],
         [2, 4, 6]
     ]
+    console.log('boxes', boxes)
 
     for(let i=0; i<rows.length; i++){
         const [a, b, c] = rows[i];

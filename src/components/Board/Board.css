@@ -1,0 +1,46 @@
+.board-wrapper {
+    min-height : 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box {
+    text-align: center;
+    width: 2em;
+    height: 2em;
+    line-height: 2;
+    float: left;
+    background: rgb(250, 209, 209);
+}
+
+.board {
+    cell-spacing: 0px;
+    border-spacing: 0px;
+    border-collapse: separate;
+    margin: 30px auto;
+  } 
+
+.board td {
+    border: 2px solid #000;
+    height: 100px;
+    width: 100px;
+    text-align: center;
+    font-size: 4em;
+}
+  
+.board tr:first-child td {
+    border-top: none
+}
+  
+.board tr:last-child td {
+    border-bottom: none
+}
+  
+.board tr td:first-child {
+    border-left: none;
+}
+  
+.board tr td:last-child {
+    border-right: none;
+}
