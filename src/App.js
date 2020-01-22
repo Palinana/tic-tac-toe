@@ -7,12 +7,12 @@ import Scoreboard from './components/ScoreBoard/ScoreBoard';
 class App extends Component {
     render() {
         return (
-            <div className="app">
+            // <div className="app">
                 <BrowserRouter>
                     <Route exact path="/" component={Scoreboard}/>
                     <Route path="/board" component={Board}/>
                 </BrowserRouter>
-            </div>
+            // </div>
         )
     }
 }
