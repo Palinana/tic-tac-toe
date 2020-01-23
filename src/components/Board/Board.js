@@ -9,8 +9,10 @@ import './Board.css';
 class Board extends Component {
     state = {
         boxes: Array(9).fill(null),
-        history: [],
-        xIsNext: true
+        xIsNext: true,
+        scoreX: 0,
+        score0: 0,
+        tie: 0 
     }
 
     // Create instance of Storage object
@@ -35,20 +37,65 @@ class Board extends Component {
         // Mark the box either as 'x' or 'o'
         boxes[index] = this.state.xIsNext ? 'x' : 'o';
 
-        // Add move to game history
-        history.push(this.state.xIsNext ? 'x' : 'o');
-
         // Update component state with new data
         this.setState({
             boxes: boxes,
-            history: history,
             xIsNext: !this.state.xIsNext
         });
     }
 
+    // Handle board restart - set component state to initial state
+    handleBoardRestart = () => {
+        this.setState({
+            boxes: Array(9).fill(null),
+            xIsNext: true
+        })
+    }
+
     render() {
+        // Get winner (if there is any)
+        const winner = findWinner(this.state.boxes);
+
+        // Are all boxes checked?
+        const isFilled = areAllBoxesClicked(this.state.boxes);
+
+        // Status message
+        let status;
+        if (winner) {
+            // If winner exists, create status message
+            status = `The winner is: ${winner}!`
+
+            // Push data about the game to storage
+            this.storage.update([`${winner} won`])
+        } else if(!winner && isFilled) {
+            // If game is drawn, create status message
+            status = 'Game drawn!'
+
+            // Push data about the game to storage
+            this.storage.update(['Game drawn'])
+        } 
+
         return (
             <div className="board-wrapper">
+                <table id="scoreboard" align="center">
+                    <tr>
+                        <td class="player"> Player (X) </td>
+                        <td class="player"> Tie </td>
+                        <td class="player"> Computer (0) </td>
+                    </tr>
+                    <tr>
+                        <td class="score" id="player1">
+                            {this.state.scoreX} 
+                        </td>
+                        <td class="score" id="tie">
+                            {this.state.scoreX} 
+                        </td>
+                        <td class="score" id="player2">
+                            {this.state.tie}  
+                        </td>
+                    </tr>
+                </table>
+
                 <table className="board">
                     <tbody className="board-row">
                         <tr>
@@ -71,6 +118,12 @@ class Board extends Component {
                             
                     </tbody>
                 </table>
+                <h2 className="board-heading">{status}</h2>
+
+                {/* Button to start new game */}
+                {winner && <div className="board-footer">
+                    <button className="btn" onClick={this.handleBoardRestart}>Start new game</button>
+                </div>}
             </div>
         );
     }
