@@ -3,6 +3,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 
 .box {
@@ -43,4 +44,25 @@
   
 .board tr td:last-child {
     border-right: none;
+}
+
+#scoreboard .score {
+    text-align: center;
+    font-size: 30px
+}
+
+#scoreboard .player:nth-child(2) {
+    padding: 0 3rem 0 4rem;
+}
+
+#scoreboard .score:nth-child(2) {
+    padding: 0 3rem 0 4rem;
+}
+  
+#scoreboard .score#player1 {
+    color: #ED676B;
+}
+  
+#scoreboard .score#player2 {
+    color: #23916B;
 }
