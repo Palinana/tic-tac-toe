@@ -6,17 +6,72 @@ import { findWinner, areAllBoxesClicked } from '../../utils/functions';
 
 import './Board.css';
 
+// Create instance of Storage object
+const storage = new Storage();
+
 class Board extends Component {
     state = {
         boxes: Array(9).fill(null),
         xIsNext: true,
         scoreX: 0,
         score0: 0,
-        tie: 0 
+        tie: 0,
+        isWinner: false,
+        status: '' 
     }
 
-    // Create instance of Storage object
-    storage = new Storage();
+    static getDerivedStateFromProps(props, state) {
+        const { boxes } = state;
+        let { scoreX, score0, tie, status } = state;
+
+        const winner = findWinner(boxes);
+        const isFilled = areAllBoxesClicked(boxes);
+
+
+        if (winner === 'x') {
+            // update status message
+            status = `The winner is: ${winner}!`
+
+            // Push data about the game to storage
+            storage.update([`${winner} won`]);
+            scoreX++;
+
+            return {
+                scoreX,
+                isWinner: true,
+                status
+            };
+        }
+        if (winner === 'o') {
+             // update status message
+            status = `The winner is: ${winner}!`
+
+            // Push data about the game to storage
+            storage.update([`${winner} won`]);
+            score0++;
+
+            return {
+                score0,
+                isWinner: true,
+                status
+            };
+        }
+
+        if (!winner && isFilled) {
+            // If game is drawn, create status message
+            status = 'Game drawn!'
+
+            // Push data about the game to storage
+            storage.update(['Game drawn']);
+            tie++;
+
+            return {
+                tie,
+                isWinner: true,
+                status
+            };
+        }
+    }
 
     // Handle click on boxes on the board.
     handleBoxClick(index) {
@@ -53,27 +108,7 @@ class Board extends Component {
     }
 
     render() {
-        // Get winner (if there is any)
-        const winner = findWinner(this.state.boxes);
-
-        // Are all boxes checked?
-        const isFilled = areAllBoxesClicked(this.state.boxes);
-
-        // Status message
-        let status;
-        if (winner) {
-            // If winner exists, create status message
-            status = `The winner is: ${winner}!`
-
-            // Push data about the game to storage
-            this.storage.update([`${winner} won`])
-        } else if(!winner && isFilled) {
-            // If game is drawn, create status message
-            status = 'Game drawn!'
-
-            // Push data about the game to storage
-            this.storage.update(['Game drawn'])
-        } 
+        let { status, isWinner } = this.state;
 
         return (
             <div className="board-wrapper">
@@ -88,10 +123,10 @@ class Board extends Component {
                             {this.state.scoreX} 
                         </td>
                         <td class="score" id="tie">
-                            {this.state.scoreX} 
+                            {this.state.tie} 
                         </td>
                         <td class="score" id="player2">
-                            {this.state.tie}  
+                            {this.state.score0}  
                         </td>
                     </tr>
                 </table>
@@ -121,7 +156,7 @@ class Board extends Component {
                 <h2 className="board-heading">{status}</h2>
 
                 {/* Button to start new game */}
-                {winner && <div className="board-footer">
+                {isWinner && <div className="board-footer">
                     <button className="btn" onClick={this.handleBoardRestart}>Start new game</button>
                 </div>}
             </div>
