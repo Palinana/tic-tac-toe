@@ -30,10 +30,10 @@ class Board extends Component {
 
         if (winner === 'x') {
             // update status message
-            status = `The winner is: ${winner}!`
+            status = `${winner} won!`
 
             // Push data about the game to storage
-            storage.update([`${winner} won`]);
+            storage.update([`${winner} won!`]);
             scoreX++;
 
             return {
@@ -59,10 +59,10 @@ class Board extends Component {
 
         if (!winner && isFilled) {
             // If game is drawn, create status message
-            status = 'Game drawn!'
+            status = `It's a drawn!`;
 
             // Push data about the game to storage
-            storage.update(['Game drawn']);
+            storage.update([`It's a drawn!`]);
             tie++;
 
             return {
@@ -114,9 +114,9 @@ class Board extends Component {
             <div className="board-wrapper">
                 <table id="scoreboard" align="center">
                     <tr>
-                        <td class="player"> Player (X) </td>
+                        <td class="player"> Player 1(X) </td>
                         <td class="player"> Tie </td>
-                        <td class="player"> Computer (0) </td>
+                        <td class="player"> Player 2 (0) </td>
                     </tr>
                     <tr>
                         <td class="score" id="player1">
