@@ -103,12 +103,13 @@ class Board extends Component {
     handleBoardRestart = () => {
         this.setState({
             boxes: Array(9).fill(null),
-            xIsNext: true
+            xIsNext: true,
+            status: '' 
         })
     }
 
     render() {
-        let { status, isWinner } = this.state;
+        let { status, isWinner, xIsNext } = this.state;
 
         return (
             <div className="board-wrapper">
@@ -134,31 +135,34 @@ class Board extends Component {
                 <table className="board">
                     <tbody className="board-row">
                         <tr>
-                            <td onClick={() => this.handleBoxClick(0)}>{this.state.boxes[0]}</td>
-                            <td onClick={() => this.handleBoxClick(1)}>{this.state.boxes[1]}</td>
-                            <td onClick={() => this.handleBoxClick(2)}>{this.state.boxes[2]}</td>
+                            <td className={this.state.boxes[0] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(0)}>{this.state.boxes[0]}</td>
+                            <td className={this.state.boxes[1] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(1)}>{this.state.boxes[1]}</td>
+                            <td className={this.state.boxes[2] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(2)}>{this.state.boxes[2]}</td>
                         </tr>
 
                         <tr>
-                            <td onClick={() => this.handleBoxClick(3)}>{this.state.boxes[3]}</td>
-                            <td onClick={() => this.handleBoxClick(4)}>{this.state.boxes[4]}</td>
-                            <td onClick={() => this.handleBoxClick(5)}>{this.state.boxes[5]}</td>
+                            <td className={this.state.boxes[3] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(3)}>{this.state.boxes[3]}</td>
+                            <td className={this.state.boxes[4] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(4)}>{this.state.boxes[4]}</td>
+                            <td className={this.state.boxes[5] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(5)}>{this.state.boxes[5]}</td>
                         </tr>
 
                         <tr>
-                            <td onClick={() => this.handleBoxClick(6)}>{this.state.boxes[6]}</td>
-                            <td onClick={() => this.handleBoxClick(7)}>{this.state.boxes[7]}</td>
-                            <td onClick={() => this.handleBoxClick(8)}>{this.state.boxes[8]}</td>
+                            <td className={this.state.boxes[6] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(6)}>{this.state.boxes[6]}</td>
+                            <td className={this.state.boxes[7] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(7)}>{this.state.boxes[7]}</td>
+                            <td className={this.state.boxes[8] === 'x' ? 'red' : 'blue'} onClick={() => this.handleBoxClick(8)}>{this.state.boxes[8]}</td>
                         </tr>
                             
                     </tbody>
                 </table>
-                <h2 className="board-heading">{status}</h2>
 
-                {/* Button to start new game */}
-                {isWinner && <div className="board-footer">
-                    <button className="btn" onClick={this.handleBoardRestart}>Start new game</button>
-                </div>}
+                <div>
+                    <div className='board-heading'>{status}</div>
+                    
+                    {/* Button to start new game */}
+                    {isWinner && <div className="board-footer">
+                        <button className="btn" onClick={this.handleBoardRestart}>Restart game</button>
+                    </div>}
+                </div>                
             </div>
         );
     }
