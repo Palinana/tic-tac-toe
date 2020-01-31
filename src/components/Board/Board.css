@@ -91,6 +91,15 @@
     font-weight: 600;
 }
 
+.btn:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
+.btn:focus {
+    outline:0;
+}
+
 .red {
     color: #CD3F4C;
 }
