@@ -30,10 +30,10 @@ class Board extends Component {
 
         if (winner === 'x') {
             // update status message
-            status = `${winner} won!`
+            status = `${winner} won`
 
             // Push data about the game to storage
-            storage.update([`${winner} won!`]);
+            storage.update([`${winner} won`]);
             scoreX++;
 
             return {
@@ -44,7 +44,7 @@ class Board extends Component {
         }
         if (winner === 'o') {
              // update status message
-            status = `The winner is: ${winner}!`
+            status = `The winner is: ${winner}`
 
             // Push data about the game to storage
             storage.update([`${winner} won`]);
@@ -59,10 +59,10 @@ class Board extends Component {
 
         if (!winner && isFilled) {
             // If game is drawn, create status message
-            status = `It's a drawn!`;
+            status = `It's a drawn`;
 
             // Push data about the game to storage
-            storage.update([`It's a drawn!`]);
+            storage.update([`It's a drawn`]);
             tie++;
 
             return {
